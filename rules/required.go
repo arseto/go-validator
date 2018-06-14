@@ -1,10 +1,31 @@
 package rules
 
-import "reflect"
+import (
+	"fmt"
+	"reflect"
+)
 
-type RequiredValidator struct{}
+type requiredValidator struct {
+	fieldName string
+	value     interface{}
+}
 
-func (r *RequiredValidator) IsValid(value interface{}) bool {
-	zeroVal := reflect.Zero(reflect.TypeOf(value)).Interface()
-	return value != zeroVal
+func MakeRequiredValidator(fieldName string, value interface{}) *requiredValidator {
+	return &requiredValidator{
+		fieldName,
+		value,
+	}
+}
+
+func (r *requiredValidator) IsValid() bool {
+	zeroVal := reflect.Zero(reflect.TypeOf(r.value)).Interface()
+	return r.value != zeroVal
+}
+
+func (r *requiredValidator) Validate() error {
+	if !r.IsValid() {
+		return fmt.Errorf("%s is required", r.fieldName)
+	}
+
+	return nil
 }
