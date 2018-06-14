@@ -4,6 +4,8 @@ Simple helper for struct validation using attributes.
 
 # Usage
 
+## Sample Code
+
 ```go
 
 type testObject struct {
@@ -41,6 +43,14 @@ func ProcessObject(obj *testObject) {
 }
 
 ```
+
+## Supported validator
+
+* `required`: field value must not equal with its zero value
+* `email`: field must be email string
+* `numeric`: field must be numeric string
+
+And many more to come next...
 
 # Contributing
 
