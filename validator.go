@@ -1,4 +1,4 @@
-package main
+package validator
 
 import (
 	"github.com/arseto/validator/reflection"
@@ -67,10 +67,10 @@ func (v *structValidator) Messages() MessageBag {
 
 func (v *structValidator) Validate() ValidationError {
 	if v.Fail() {
-		return &validationError{
-			"Validation failed",
+		return NewValidationError(
+			"Validation Failed",
 			v.messages,
-		}
+		)
 	}
 	return nil
 }

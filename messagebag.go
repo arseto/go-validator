@@ -1,4 +1,4 @@
-package main
+package validator
 
 type MessageBag interface {
 	AddMessage(message string)

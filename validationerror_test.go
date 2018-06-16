@@ -1,4 +1,4 @@
-package main
+package validator
 
 import "testing"
 
@@ -12,10 +12,11 @@ func (m *mockMessage) Empty() bool { return false }
 
 func TestValidationError(t *testing.T) {
 	messages := &mockMessage{}
-	e := &validationError{
+
+	e := NewValidationError(
 		"test error",
 		messages,
-	}
+	)
 
 	if e.Error() != "test error" {
 		t.Error("Mismatch error message")

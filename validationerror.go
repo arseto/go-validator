@@ -1,14 +1,31 @@
-package main
+package validator
 
-type ValidationError error
+type ValidationError interface {
+	error
+	Messages() MessageBag
+}
 
 type validationError struct {
-	message  string
+	err      string
 	messages MessageBag
 }
 
+func NewValidationErrorShort(err string) ValidationError {
+	return &validationError{
+		err,
+		&messageBag{make([]string, 0)},
+	}
+}
+
+func NewValidationError(err string, messages MessageBag) ValidationError {
+	return &validationError{
+		err,
+		messages,
+	}
+}
+
 func (e *validationError) Error() string {
-	return e.message
+	return e.err
 }
 
 func (e *validationError) Messages() MessageBag {
