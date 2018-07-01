@@ -1,4 +1,4 @@
-package reflection
+package validator
 
 import (
 	"reflect"
@@ -26,7 +26,7 @@ func ReadValidationRules(obj interface{}) map[string]*ValidationRule {
 		tagStr := tag.Get("validate")
 		validateTags := make([]string, 0)
 		if len(tagStr) > 0 {
-			validateTags = strings.Split(tagStr, ",")
+			validateTags = strings.Split(tagStr, "|")
 		}
 		rule := &ValidationRule{
 			valueField.Interface(),

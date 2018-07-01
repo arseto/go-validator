@@ -1,4 +1,4 @@
-package reflection
+package validator
 
 import (
 	"reflect"
@@ -8,7 +8,7 @@ import (
 type TestObject struct {
 	ID      int64  `validate:"required"`
 	Name    string `validate:"required"`
-	Email   string `validate:"required,email"`
+	Email   string `validate:"required|email"`
 	Phone   string `validate:"numeric"`
 	Remarks string
 }

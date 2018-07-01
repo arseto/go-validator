@@ -1,10 +1,5 @@
 package validator
 
-import (
-	"github.com/arseto/validator/reflection"
-	"github.com/arseto/validator/rules"
-)
-
 type FieldValidator interface {
 	IsValid() bool
 	Validate() error
@@ -22,7 +17,7 @@ type structValidator struct {
 }
 
 func MakeStructValidator(obj interface{}) StructValidator {
-	validationRules := reflection.ReadValidationRules(obj)
+	validationRules := ReadValidationRules(obj)
 
 	mb := &messageBag{make([]string, 0)}
 
@@ -32,11 +27,11 @@ func MakeStructValidator(obj interface{}) StructValidator {
 
 			switch fieldRule {
 			case "email":
-				validator = rules.MakeEmailValidator(key, rule.Value)
+				validator = MakeEmailValidator(key, rule.Value)
 			case "required":
-				validator = rules.MakeRequiredValidator(key, rule.Value)
+				validator = MakeRequiredValidator(key, rule.Value)
 			case "numeric":
-				validator = rules.MakeNumericValidator(key, rule.Value)
+				validator = MakeNumericValidator(key, rule.Value)
 			default:
 				validator = nil
 			}
